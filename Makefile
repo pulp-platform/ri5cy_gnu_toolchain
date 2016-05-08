@@ -1,0 +1,25 @@
+.PHONY: build
+
+build:
+	git clone https://github.com/riscv/riscv-gnu-toolchain.git toolchain
+	cd toolchain && git checkout d038d596dc1d8e47ace22ab742cd40c2f22d659e
+
+	mkdir -p build
+	cd build && $(CURDIR)/toolchain/configure --with-xlen=32 --with-arch=IM --disable-atomic --disable-float --disable-multilib --prefix=$(CURDIR)/install
+	cd build && make && make install
+
+	cd build && tar mxvfz $(CURDIR)/riscv_tools_delta.tar.gz
+	cd toolchain && tar mxvfz $(CURDIR)/riscv_tools_delta.tar.gz
+
+	cd build/src/gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
+	cd build/src/gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
+	cd build/src/newlib-gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
+	cd build/src/newlib-gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
+	cd build/src/newlib-gcc/gcc/config/riscv && rm -f pulp.md && ln ../../../../../gcc/gcc/config/riscv/pulp.md pulp.md
+	cd build/src/gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
+	cd build/src/newlib-gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
+
+	cd build/build-binutils-newlib && make clean && make && make install
+	cd build/build-gcc-newlib/ && make clean && make && make install
+
+	#cd build/build-gcc-newlib && cat Makefile | sed s/'CXXFLAGS_FOR_TARGET = -g -O2'/'CXXFLAGS_FOR_TARGET = -g -O2 -march=IXpulpv2'/g | sed s/'CFLAGS_FOR_TARGET = -g -O2'/'CFLAGS_FOR_TARGET = -g -O2 -march=IXpulpv2'/g > Makefile.new && mv Makefile.new Makefile && make clean all install
