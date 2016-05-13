@@ -8,7 +8,7 @@ Run the following command to build the toolchain:
 
     make
 
-This will download a specific version of the RISCV toolchain based on gcc 5.3, patch it with extensions for Pulpino and compile it.
+This will download a specific version of the RISCV toolchain based on gcc 5.2, patch it with extensions for Pulpino and compile it.
 
 The resulting toolchains should be in the install directory.
 
