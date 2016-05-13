@@ -24,11 +24,11 @@ This toolchain supports the following Pulpino cores :
 
 # Usage
 
-The toolchain can be used as the standard RISCV toolchain except that the following option must be used:
+The toolchain can be used as the standard RISCV toolchain except that one of the following option must be used:
 
-  -march=IX<core version>
-
-<core version> can be either pulpv0, pulpv1 or pulpv2 depending on the core version.
+  -march=IXpulpv0
+  -march=IXpulpv1
+  -march=IXpulpv2
 
 This option will select the appropriate set of instructions to be used, thus no other RISCV option is needed.
 
