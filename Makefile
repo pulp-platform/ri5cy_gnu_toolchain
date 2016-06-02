@@ -16,8 +16,10 @@ build:
 
 	cd $(BUILD_DIR)/src/gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
 	cd $(BUILD_DIR)/src/gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
+	cd $(BUILD_DIR)/src/gcc/gcc && rm -f ira-color.c && ln ../../../gcc/gcc/ira-color.c ira-color.c
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
+	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f ira-color.c && ln ../../../gcc/gcc/ira-color.c ira-color.c
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc/config/riscv && rm -f pulp.md && ln ../../../../../gcc/gcc/config/riscv/pulp.md pulp.md
 	cd $(BUILD_DIR)/src/gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
