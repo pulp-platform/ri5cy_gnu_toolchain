@@ -3,8 +3,10 @@ PKG_DIR ?= $(CURDIR)/install
 
 .PHONY: build
 
+PATCH_FILES = gcc.c gcse.c target.def builtins.c omp-low.c ira-color.c doc/tm.texi doc/tm.texi.in config/riscv/pulp_builtins.def
+
 build:
-	git clone https://github.com/riscv/riscv-gnu-toolchain.git toolchain
+	if [ ! -e toolchain ]; then git clone https://github.com/riscv/riscv-gnu-toolchain.git toolchain; fi
 	cd toolchain && git checkout d038d596dc1d8e47ace22ab742cd40c2f22d659e
 
 	mkdir -p $(BUILD_DIR)
@@ -14,12 +16,8 @@ build:
 	cd $(BUILD_DIR) && tar mxvfz $(CURDIR)/riscv_tools_delta.tar.gz
 	cd toolchain && tar mxvfz $(CURDIR)/riscv_tools_delta.tar.gz
 
-	cd $(BUILD_DIR)/src/gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
-	cd $(BUILD_DIR)/src/gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
-	cd $(BUILD_DIR)/src/gcc/gcc && rm -f ira-color.c && ln ../../../gcc/gcc/ira-color.c ira-color.c
-	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f gcc.c && ln ../../../gcc/gcc/gcc.c gcc.c
-	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f gcse.c && ln ../../../gcc/gcc/gcse.c gcse.c
-	cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f ira-color.c && ln ../../../gcc/gcc/ira-color.c ira-color.c
+	for file in $(PATCH_FILES); do cd $(BUILD_DIR)/src/gcc/gcc && rm -f $$file && ln ../../../gcc/gcc/$$file $$file; done
+	for file in $(PATCH_FILES); do cd $(BUILD_DIR)/src/newlib-gcc/gcc && rm -f $$file && ln ../../../gcc/gcc/$$file $$file; done
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc/config/riscv && rm -f pulp.md && ln ../../../../../gcc/gcc/config/riscv/pulp.md pulp.md
 	cd $(BUILD_DIR)/src/gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
 	cd $(BUILD_DIR)/src/newlib-gcc/gcc/config/riscv && rm -f riscv-opts.h && ln ../../../../../gcc/gcc/config/riscv/riscv-opts.h riscv-opts.h
