@@ -6,7 +6,14 @@ PKG_DIR ?= $(CURDIR)/install
 build:
 	git clone https://github.com/riscv/riscv-gnu-toolchain.git toolchain
 	cd toolchain && git checkout d038d596dc1d8e47ace22ab742cd40c2f22d659e
-
+	if [ -d $(TOOL_PATCH_DIR) ]; then \
+			cd toolchain; \
+			FILES=$$(ls $(TOOL_PATCH_DIR)/*.patch | sort); \
+			for tmp in $$FILES; do \
+				test=$$(patch -p1 -R -N --dry-run <$$tmp 1>/dev/null 2>&1; echo $$?);  \
+				if [ "$$test" != "0" ]; then patch -p1 -N <$$tmp; fi \
+			done; \
+		fi
 	mkdir -p $(BUILD_DIR)
 	cd $(BUILD_DIR) && $(CURDIR)/toolchain/configure --with-xlen=32 --with-arch=IM --disable-atomic --disable-float --disable-multilib --prefix=$(PKG_DIR)
 	cd $(BUILD_DIR) && make && make install
