@@ -18,7 +18,7 @@ This toolchain supports the following Pulpino cores :
 
 - Riscy. Compile the toolchain with: make
 
-- Riscy_fpu (riscy with hardare floating point unit). Compile the toolchain with: make RISCY_FPU
+- Riscy_fpu (riscy with hardare floating point unit). Compile the toolchain with: make RISCY_FPU=1
 
 - Zeroriscy. Compile the toolchain with: make ZERORISCY=1
 
