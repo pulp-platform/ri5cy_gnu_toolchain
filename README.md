@@ -4,7 +4,7 @@ This is a port of the RISCV GCC toolchain, which has been extended to support th
 
 # Build
 
-Run the following command to build the toolchain:
+Run the following command to build the toolchain (by default for riscy, see the next section to select another core):
 
     make
 
@@ -16,19 +16,25 @@ The resulting toolchains should be in the install directory.
 
 This toolchain supports the following Pulpino cores :
 
-- Honey bunny, referred as pulpv0
+- Riscy. Compile the toolchain with: make
 
-- Imperio, referred as pulpv1
+- Riscy_fpu (riscy with hardare floating point unit). Compile the toolchain with: make RISCY_FPU
 
-- Latest version, referred as pulpv2
+- Zeroriscy. Compile the toolchain with: make ZERORISCY=1
+
+- Microriscy. Compile the toolchain with: make MICRORISCY=1
 
 # Usage
 
 The toolchain can be used as the standard RISCV toolchain except that one of the following option must be used:
 
-    -march=IXpulpv0
-    -march=IXpulpv1
-    -march=IXpulpv2
+- Riscy: -march=IMXpulpv2
+
+- Riscy_fpu: -march=IMFDXpulpv2 -mhard-float
+
+- Zeroriscy. Compile the toolchain with: -march=IMX
+
+- Microriscy. Compile the toolchain with: -march=IMX -m16r
 
 This option will select the appropriate set of instructions to be used, thus no other RISCV option is needed.
 

@@ -1,6 +1,25 @@
 BUILD_DIR ?= $(CURDIR)/build
 PKG_DIR ?= $(CURDIR)/install
 
+ifdef ZERORISCY_PULP
+ARCH_FLAGS?=-march=IMXpulpslim
+else
+ifdef ZERORISCY
+ARCH_FLAGS?=-march=IMX
+else
+ifdef MICRORISCY
+ARCH_FLAGS?=-march=IMX -m16r
+else
+ifdef RISCY_FPU
+ARCH_FLAGS?=-march=IMFDXpulpv2 -mhard-float
+else
+ARCH_FLAGS?=-march=IMXpulpv2
+endif
+endif
+endif
+endif
+
+
 .PHONY: build
 
 PATCH_FILES = gcc.c gcse.c target.def builtins.c omp-low.c ira-color.c doc/tm.texi doc/tm.texi.in config/riscv/pulp_builtins.def
@@ -32,4 +51,4 @@ build:
 	cd $(BUILD_DIR)/build-binutils-newlib && make clean && make && make install
 	cd $(BUILD_DIR)/build-gcc-newlib/ && make clean && make && make install
 
-	#cd build/build-gcc-newlib && cat Makefile | sed s/'CXXFLAGS_FOR_TARGET = -g -O2'/'CXXFLAGS_FOR_TARGET = -g -O2 -march=IXpulpv2'/g | sed s/'CFLAGS_FOR_TARGET = -g -O2'/'CFLAGS_FOR_TARGET = -g -O2 -march=IXpulpv2'/g > Makefile.new && mv Makefile.new Makefile && make clean all install
+	cd $(BUILD_DIR)/build-gcc-newlib && cat Makefile | sed s/'CXXFLAGS_FOR_TARGET = -g -O2'/'CXXFLAGS_FOR_TARGET = -g -O2 $(ARCH_FLAGS)'/g | sed s/'CFLAGS_FOR_TARGET = -g -O2'/'CFLAGS_FOR_TARGET = -g -O2 $(ARCH_FLAGS)'/g > Makefile.new && mv Makefile.new Makefile && make clean all install
