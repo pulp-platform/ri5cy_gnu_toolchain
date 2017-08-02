@@ -32,9 +32,9 @@ The toolchain can be used as the standard RISCV toolchain except that one of the
 
 - Riscy_fpu: -march=IMFDXpulpv2 -mhard-float
 
-- Zeroriscy. Compile the toolchain with: -march=IMX
+- Zeroriscy. Compile the toolchain with: -march=IM
 
-- Microriscy. Compile the toolchain with: -march=IMX -m16r
+- Microriscy. Compile the toolchain with: -march=IM -m16r
 
 This option will select the appropriate set of instructions to be used, thus no other RISCV option is needed.
 

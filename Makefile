@@ -5,10 +5,10 @@ ifdef ZERORISCY_PULP
 ARCH_FLAGS?=-march=IMXpulpslim
 else
 ifdef ZERORISCY
-ARCH_FLAGS?=-march=IMX
+ARCH_FLAGS?=-march=IM
 else
 ifdef MICRORISCY
-ARCH_FLAGS?=-march=IMX -m16r
+ARCH_FLAGS?=-march=IM -m16r
 else
 ifdef RISCY_FPU
 ARCH_FLAGS?=-march=IMFDXpulpv2 -mhard-float
