@@ -8,7 +8,7 @@ ifdef ZERORISCY
 ARCH_FLAGS?=-march=IM
 else
 ifdef MICRORISCY
-ARCH_FLAGS?=-march=IM -m16r
+ARCH_FLAGS?=-march=I -m16r
 else
 ifdef RISCY_FPU
 ARCH_FLAGS?=-march=IMFDXpulpv2 -mhard-float

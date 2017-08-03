@@ -34,7 +34,7 @@ The toolchain can be used as the standard RISCV toolchain except that one of the
 
 - Zeroriscy. Compile the toolchain with: -march=IM
 
-- Microriscy. Compile the toolchain with: -march=IM -m16r
+- Microriscy. Compile the toolchain with: -march=I -m16r
 
 This option will select the appropriate set of instructions to be used, thus no other RISCV option is needed.
 
