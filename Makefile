@@ -1,5 +1,6 @@
 BUILD_DIR ?= $(CURDIR)/build
 PKG_DIR ?= $(CURDIR)/install
+TOOL_PATCH_DIR ?= $(CURDIR)/toolchain-patches
 
 ifdef ZERORISCY_PULP
 ARCH_FLAGS?=-march=IMXpulpslim
@@ -18,7 +19,6 @@ endif
 endif
 endif
 endif
-
 
 .PHONY: build
 
