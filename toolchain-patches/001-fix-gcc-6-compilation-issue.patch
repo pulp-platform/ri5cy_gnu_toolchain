@@ -126,4 +126,4 @@ index 5561fd1..e30e714 100644
 ++	gperf -o -C -E -k '1-6,$$' -j1 -D -N 'libc_name_p' -L C++ \
 + 		$(srcdir)/cp/cfns.gperf --output-file $(srcdir)/cp/cfns.h
 + 
-+ #
++ #
